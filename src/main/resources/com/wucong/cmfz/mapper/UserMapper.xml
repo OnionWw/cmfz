@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wucong.cmfz.mapper.UserMapper">
+    <resultMap id="pro" type="com.wucong.cmfz.enetiy.ProTemp">
+        <result column="province" property="name"></result>
+        <result column="value" property="value"></result>
+    </resultMap>
+    <!-- 查省份用户人数 -->
+    <select id="selectCountByProvince" resultMap="pro">
+        select province,count(*) value from user group by province
+    </select>
+
+    <select id="selectCountByMonth" parameterType="Integer" resultType="Integer">
+    <bind name="month" value="(mon*30)"></bind>
+        select count(*) from user where DATEDIFF(NOW(),reg_date)<![CDATA[ <= ]]>#{month}
+    </select>
+</mapper>

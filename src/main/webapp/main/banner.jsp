@@ -9,7 +9,7 @@
                     closed:false,
                     width:300,
                     hight:300,
-                    href:"${pageContext.request.contextPath}/main/add.jsp"
+                    href:"${pageContext.request.contextPath}/main/bannerAdd.jsp"
                 });
             }
         }, '-', {
@@ -52,7 +52,7 @@
 
         $('#dg').edatagrid({
             method: "GET",
-            saveUrl: "${pageContext.request.contextPath}/banner/update",
+            saveUrl: "${pageContext.request.contextPath}/banner/insert",
             updateUrl: "${pageContext.request.contextPath}/banner/update",
             url: '${pageContext.request.contextPath}/banner/getAll',
             destroyUrl: "${pageContext.request.contextPath}/banner/delete",

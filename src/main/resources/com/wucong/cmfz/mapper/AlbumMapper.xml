@@ -1,0 +1,77 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wucong.cmfz.mapper.AlbumMapper">
+<resultMap id="res2" type="com.wucong.cmfz.enetiy.Album">
+    <id column="fid" property="id"/>
+    <result column="ftitle" property="title"/>
+    <result column="fcount" property="count"/>
+    <result column="fcover_img" property="coverImg"/>
+    <result column="fscore" property="score"/>
+    <result column="fauthor" property="author"/>
+    <result column="fbroadcast" property="broadcast"/>
+    <result column="fbrief" property="brief"/>
+    <result column="fpub_date" property="pubDate"/>
+    <collection property="children" ofType="com.wucong.cmfz.enetiy.Chapter">
+        <id column="cid" property="id"/>
+        <result column="ctitle" property="title"/>
+        <result column="csize" property="size"/>
+        <result column="cduration" property="duration"/>
+        <result column="curl" property="url"/>
+        <result column="cupload_date" property="uploadDate"/>
+        <result column="calbum_id" property="albumId"/>
+    </collection>
+</resultMap>
+
+
+<!-- 查总行数 -->
+<select id="selectTotalCount" resultType="int">
+    select count(*)
+    from album f
+             left join chapter c
+                       on f.id = c.album_id
+</select>
+
+<select id="selectByPage" resultMap="res2">
+    select f.id          fid,
+           f.title       ftitle,
+           f.count       fcount,
+           f.author      fauthor,
+           f.cover_img   fcover_img,
+           f.score       fscore,
+           f.broadcast   fbroadcast,
+           f.brief       fbrief,
+           f.pub_date    fpub_date,
+           c.id          cid,
+           c.title       ctitle,
+           c.size        csize,
+           c.duration    cduration,
+           c.url         curl,
+           c.upload_date cupload_date,
+           c.album_id    calbum_id
+    from album f
+             left join chapter c
+                       on f.id = c.album_id
+    order by c.id desc limit ${(curPage-1)*pageSize},${pageSize}
+</select>
+<select id="queryAll" resultMap="res2">
+    select f.id          fid,
+           f.title       ftitle,
+           f.count       fcount,
+           f.author      fauthor,
+           f.cover_img   fcover_img,
+           f.score       fscore,
+           f.broadcast   fbroadcast,
+           f.brief       fbrief,
+           f.pub_date    fpub_date,
+           c.id          cid,
+           c.title       ctitle,
+           c.size        csize,
+           c.duration    cduration,
+           c.url         curl,
+           c.upload_date cupload_date,
+           c.album_id    calbum_id
+    from album f
+             left join chapter c
+                       on f.id = c.album_id
+</select>
+
+</mapper>

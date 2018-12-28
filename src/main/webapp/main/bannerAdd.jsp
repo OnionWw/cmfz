@@ -15,7 +15,10 @@
 				var y = date.getFullYear();
 				var m = date.getMonth()+1;
 				var d = date.getDate();
-				return y+"/"+m+"/"+d;
+				var h = date.getHours();
+				var t = date.getMinutes();
+				var e = date.getSeconds();
+				return y+"-"+m+"-"+d+" "+h+":"+t+":"+e;
 			},
 			parser:function(s){
 				var t = Date.parse(s);
@@ -43,7 +46,7 @@
 							title:"标题",
 							msg:"保存成功！"
 						});
-						$("#table1").datagrid("load");
+						$("#dg").datagrid("load");
 					}
 				});
 			},
